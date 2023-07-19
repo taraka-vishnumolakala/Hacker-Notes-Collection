@@ -130,7 +130,7 @@ GraphQL has some unique characteristics when it comes to HTTP methods and status
 - Fragments allow clients to reuse the same set of fields in a GraphQL query for readability and to avoid field repetition. 
 - Instead of repeating the fields, you can define a fragment once and use it whenever you need that particular set of fields.
 - Fragments are defined using the fragment keyword, followed by any name you desire, and declared using the on keyword on an object type name :
-```json
+```js
 	query {
 		pastes {
 			... CommonFields 
@@ -164,7 +164,7 @@ GraphQL has some unique characteristics when it comes to HTTP methods and status
 - Custom directives empower GraphQL implementations to develop new features or augment functionality not currently supported, or widely used, by the ecosystem. 
 - One example of a widely adopted custom directive is **`@computed`**. This powerful schema - level directive saves implementers from having to create resolver functions for fields that can be computed from the values of other fields in the schema. 
 - In the example below **`@computed`** directive can merge the firstName and lastName fields into the fullName field. 
-```json
+```js
 	type User { 
 		firstName : String 
 		lastName : String 
@@ -181,7 +181,7 @@ GraphQL has some unique characteristics when it comes to HTTP methods and status
 
 - Custom object types are groups of one or more fields that define domain - or application - specific objects. 
 - Consider the example schema below: 
-```json
+```js
 	type PasteObject { 
 		id : ID ! 
 		title : String 
@@ -201,7 +201,7 @@ GraphQL has some unique characteristics when it comes to HTTP methods and status
 - Scalars include several core built - in value types, such as ID, Int, Float, String, and Boolean. Unlike object types, they don’t have their own fields.
 - Custom scalars may also use the **`@specifiedBy`** built - in directive to describe their specification URL for clients. 
 - For example, a custom scalar type UUID may set its specification URL to the relevant Internet Engineering Task Force ( IETF ) specification : 
-```json
+```js
 	scalar UUID @ specifiedBy (url : "https://tools.ietf.org/html/rfc4122")
 ```
 
@@ -209,7 +209,7 @@ GraphQL has some unique characteristics when it comes to HTTP methods and status
 
 - Enums, or enumeration types, are fields used to return a single string value from a list of possible values. 
 - For example, an application may want to allow a client to choose how to sort a list of usernames in the response.
-```json
+```js
 	enum UserSortEnum {
 	  ID
 	  EMAIL
@@ -235,7 +235,7 @@ GraphQL has some unique characteristics when it comes to HTTP methods and status
 
 - A union is a type that returns one of many object types. A client can leverage unions to send a single request to a GraphQL server and get a list of objects.
 
-```json
+```js
 	query { 
 		search ( keyword : " p " ) {
 			... on UserObject { 
@@ -252,7 +252,7 @@ GraphQL has some unique characteristics when it comes to HTTP methods and status
 
 - To accept and resolve a request like this, a schema can use a union type.
 
-```json
+```js
 	union SearchResults = UserObject | PasteObject 
 	
 	type UserObject { 
@@ -278,7 +278,7 @@ GraphQL has some unique characteristics when it comes to HTTP methods and status
 - In the union request example covered in the previous section, you saw how we could retrieve the username field of any User object, as well as the title and content fields of any Paste object, as long as these matched the search pattern. Interfaces do not work like this ; they require the same fields to be present in both objects in order for the objects to be joined in a response to the client.
 - To implement our search functionality using interfaces instead of unions
 
-```json
+```js
 	interface SearchItem { 
 		keywords : [String!] 
 	} 
@@ -324,7 +324,7 @@ GraphQL has some unique characteristics when it comes to HTTP methods and status
 | **`__directive`**      | Provides all information on both custom and built-in directives                        |
 
 - **`__schema`**  introspection type against DVGA. 
-```json
+```js
 	query { 
 		__schema { 
 			types { 
@@ -335,7 +335,7 @@ GraphQL has some unique characteristics when it comes to HTTP methods and status
 ```
 
 - We can use **`__type`** to further investigate information about types we find interesting. 
-```json
+```js
 	query { 
 		__type (name: "PasteObject") { 
 			name 
